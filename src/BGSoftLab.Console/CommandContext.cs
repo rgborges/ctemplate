@@ -1,4 +1,4 @@
-namespace bgsoftlab.console;
+namespace BGSoftLab.Console;
 
 public class CommandContext
 {

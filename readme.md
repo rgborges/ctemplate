@@ -10,6 +10,15 @@ Configuring a builder:
 ```csharp
 var builder = new CommandAppBuilder();
 
+builder.AddCommand(config => {
+      config.Description = "hello world command";
+      config.Key = "hello";
+      config.HasInputParameter = true;
+      config.InputIndexReference = CommadInputReference.Next;
+}, (commandContext) => {
+      System.Console.WriteLine("Hello world");
+});
+
 ```
 
 Adding a command example

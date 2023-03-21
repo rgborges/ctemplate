@@ -1,4 +1,6 @@
-namespace bgsoftlab.console
+using System;
+
+namespace BGSoftLab.Console
 {
       public interface ICommandSpecBuilder<TBuilder>
       {

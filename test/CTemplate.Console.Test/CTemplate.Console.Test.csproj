@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\bgsoftlab.console\bgsoftlab.console.csproj" />
+    <ProjectReference Include="..\..\src\BGSoftLab.Console\BGSoftLab.Console.csproj" />
   </ItemGroup>
 
   <PropertyGroup>

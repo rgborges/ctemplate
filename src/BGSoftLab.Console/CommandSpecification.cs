@@ -1,4 +1,9 @@
-namespace bgsoftlab.console;
+namespace BGSoftLab.Console;
+
+
+// Performance.Measure.Act( () => {
+//       Say.Hi("Rafael", ConsoleColor.Blue);
+// });
 
 public record CommandSpecification
 {
