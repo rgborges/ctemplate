@@ -1,4 +1,4 @@
-# Introduction
+# Introducto
 
 There is a lot of command line parsing out there. But I decide to create mine just to be more confortable with.
 
@@ -18,12 +18,11 @@ builder.AddCommand(config => {
 }, (commandContext) => {
       System.Console.WriteLine("Hello world");
 });
-
 ```
 
 Adding a command example
 
 
 ```csharp
-
+builder.RegiterCommand<IHello, Hello>(); // this register a command with dependency injection on it.
 ```

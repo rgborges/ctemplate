@@ -2,26 +2,30 @@ using System;
 
 namespace BGSoftLab.Console
 {
+      /// <summary>
+      /// Represents a Command parsed from the parser; 
+      /// </summary>
       public class Command : ICommand
       {
             private CommandContext? _context;
-            private readonly CommandSpecification _specification;
+            private readonly CommandSpecificationConfiguration _specification;
             private readonly Action<CommandContext> _action;
 
-            public Command(CommandSpecification spec, Action<CommandContext> act)
+            public CommandSpecificationConfiguration CommandConfiguration { get => _specification;  }
+
+            public Command(CommandSpecificationConfiguration spec, Action<CommandContext> act)
             {
                   _specification = spec;
                   _action = act;
             }
-            public Command(CommandContext context, CommandSpecification spec, Action<CommandContext> act)
+            public Command(CommandContext context, CommandSpecificationConfiguration spec, Action<CommandContext> act)
             {
                   _context = context;
                   _specification = spec;
                   _action = act;
             }
-            
-            public bool Validate(string input)
-            {
+           public bool Validate(string input)
+           { 
                   if(input == _specification.Key)
                   {
                         return true;
@@ -32,7 +36,6 @@ namespace BGSoftLab.Console
             {
                   _context = context;
             }
-
             public void Run()
             {
                   if(_context is null || _specification is null)

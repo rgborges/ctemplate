@@ -7,33 +7,31 @@ namespace BGSoftLab.Console
       {
             private readonly string _appName = string.Empty;
             
-            private List<KeyValuePair<CommandSpecification, Action<CommandContext>>> _commands;
+            private List<KeyValuePair<Command, Action<CommandContext>>> _commands;
 
             public ConsoleAppBuilder(string appName)
             {
                   _appName = appName;
-                  _commands = new List<KeyValuePair<CommandSpecification, Action<CommandContext>>>(10);
+                  _commands = new List<KeyValuePair<Command, Action<CommandContext>>>(10);
             }
-            public ConsoleAppBuilder AddCommand(Action<CommandSpecification> spec, Action<CommandContext> act)
+            public ConsoleAppBuilder AddCommand(Action<CommandSpecificationConfiguration> spec, Action<CommandContext> act)
             {
-                  var inSpec = new CommandSpecification();
-                  
-                  spec(inSpec);
-
-                  _commands.Add(new KeyValuePair<CommandSpecification, Action<CommandContext>>(inSpec, act));
-
+                  var config = new CommandSpecificationConfiguration();
+                  spec(config);
+                  var incomeCommand = new Command(config, act);
+                  _commands.Add(new KeyValuePair<Command, Action<CommandContext>>(incomeCommand, act));
                   return this;
             }
 
             public CommandApp Build()
             {
                   var commands = new List<Command>(10);
-
-                  foreach (var cf in _commands)
+                  //Implement the to parse the new commmands
+                  foreach (var commandConfig in _commands)
                   {
-                        commands.Add(new Command(cf.Key, cf.Value));
+                        commands.Add(new Command(commandConfig.Key.CommandConfiguration, 
+                              commandConfig.Value));                        
                   }
-
                   return new CommandApp(commands);
             }
             
