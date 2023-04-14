@@ -10,6 +10,13 @@ builder.AddCommand(config => {
       config.Key = "hello";
       config.HasInputParameter = true;
       config.InputIndexReference = CommadInputReference.Next;
+      config.OptionBuilder = new CommandOptionBuilder()
+                                          .AddOption(config => {
+                                                config.Key = "-c";
+                                                config.Act = () => {
+                                                      System.Console.ForegroundColor = ConsoleColor.Blue;
+                                                };
+                                          });
 }, (commandContext) => {
       var parameter = commandContext.GetParameter();
       if (parameter is null) {
@@ -18,5 +25,9 @@ builder.AddCommand(config => {
       }
       System.Console.WriteLine("Hello {0}", parameter);
 });
+
+builder.AddHelpCommand();
+
 var app = builder.Build();
+
 app.Run(Environment.GetCommandLineArgs());

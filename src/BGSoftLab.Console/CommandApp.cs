@@ -21,6 +21,7 @@ namespace BGSoftLab.Console
             public void Run(string[] args)
             {
                   bool hasAnyParameterParsed = false;
+                  
                   var context = new CommandContext(args, _commands);
 
                   for(int i = 0; i < args.Length; i++)

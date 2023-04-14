@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace BGSoftLab.Console
 {
@@ -10,6 +11,7 @@ namespace BGSoftLab.Console
             private CommandContext? _context;
             private readonly CommandSpecificationConfiguration _specification;
             private readonly Action<CommandContext> _action;
+            private List<CommandOption> _options;
 
             public CommandSpecificationConfiguration CommandConfiguration { get => _specification;  }
 
@@ -17,6 +19,7 @@ namespace BGSoftLab.Console
             {
                   _specification = spec;
                   _action = act;
+                  _options = new List<CommandOption>(10);
             }
             public Command(CommandContext context, CommandSpecificationConfiguration spec, Action<CommandContext> act)
             {
@@ -35,6 +38,10 @@ namespace BGSoftLab.Console
             public void SetCommandContext(CommandContext context)
             {
                   _context = context;
+            }
+            public void AddOption(CommandOption option)
+            {
+                  _options.Add(option);
             }
             public void Run()
             {

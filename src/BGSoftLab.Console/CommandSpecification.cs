@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace BGSoftLab.Console;
 
@@ -9,6 +10,9 @@ public class CommandSpecificationConfiguration
       public bool HasInputParameter { get; set; } = false;
       public CommadInputReference InputIndexReference { get; set; } = CommadInputReference.Next;
       public Action<CommandContext>? CommandAction { get; set; }
+      public CommandOptionBuilder? OptionBuilder { get; set;}
+      public bool HasOptionsConfigured { get; set;}
+      public bool HasOptionsInputParameter { get; set;}
 }
 
 public enum CommadInputReference

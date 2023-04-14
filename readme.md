@@ -19,9 +19,7 @@ builder.AddCommand(config => {
       System.Console.WriteLine("Hello world");
 });
 ```
-
 Adding a command example
-
 
 ```csharp
 builder.RegiterCommand<IHello, Hello>(); // this register a command with dependency injection on it.
