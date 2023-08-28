@@ -10,7 +10,8 @@ namespace BGSoftLab.Console
             private bool _useHelpCommand = false;
             public bool SetInteractiveMode { get => _interactiveMode; set {
                   _interactiveMode = value;
-            } } 
+             } 
+            } 
             private List<KeyValuePair<Command, Action<CommandContext>>> _commands;
 
             public ConsoleAppBuilder(string appName)
@@ -35,12 +36,12 @@ namespace BGSoftLab.Console
 
             public CommandApp Build()
             {
-                  var commands = new List<Command>(10);
+                  var commands = new List<ICommand>(10);
                   //Implement the to parse the new commmands
                   foreach (var commandConfig in _commands)
                   {
                         commands.Add(new Command(commandConfig.Key.CommandConfiguration, 
-                              commandConfig.Value));                        
+                              commandConfig.Value));
                   }
                   return new CommandApp(commands);
             }

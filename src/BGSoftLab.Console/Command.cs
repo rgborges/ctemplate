@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.InteropServices;
 
 namespace BGSoftLab.Console
 {
@@ -20,12 +22,13 @@ namespace BGSoftLab.Console
                   _specification = spec;
                   _action = act;
                   _options = new List<CommandOption>(10);
-            }
-            public Command(CommandContext context, CommandSpecificationConfiguration spec, Action<CommandContext> act)
-            {
-                  _context = context;
-                  _specification = spec;
-                  _action = act;
+
+
+                  if(spec.OptionBuilder is not null) 
+                  {
+                        var opBuilder = spec.OptionBuilder.Build();
+                        _options = opBuilder;
+                  }
             }
            public bool Validate(string input)
            { 
@@ -52,7 +55,6 @@ namespace BGSoftLab.Console
                               nameof(_context), nameof(_specification))
                               );
                   }
-                  
                   try
                   {
                         _action(_context);
@@ -62,5 +64,35 @@ namespace BGSoftLab.Console
                     throw;
                   }
             }
-      }
+
+        public CommandSpecificationConfiguration GetSpecification()
+        {
+            return this._specification;
+        }
+        public ICollection<CommandOption> GetOptions()
+        {
+            return this._options;
+        }
+
+        public ICollection<CommandOption> GetValidatedOptionsWith(string[] keys)
+        {
+            try
+            {
+                  var result = new List<CommandOption>();
+                  foreach(string arg in keys)
+                  {
+                        var r = _options.Where(x => x.Key == arg).FirstOrDefault();
+                        if (r is not null)
+                        {
+                              result.Add(r);
+                        }
+                  }
+                  return result;
+            }
+            catch
+            {
+                  throw;
+            }
+        }
+    }
 }

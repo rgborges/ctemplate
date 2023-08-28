@@ -8,8 +8,7 @@ public class CommandContext
       private string[] _args;
       private ICommand _command;
       private int _currentIndex = 0;
-      private string[] args;
-      private List<CommandOption> _options;
+      private ICollection<CommandOption> _options;
 
       public string[]? CommandArgs { get => _args; }
       public int CurrentIndex { get => _currentIndex; }
@@ -18,10 +17,12 @@ public class CommandContext
       ///Later  on we can configure IServiceCollection bus
       public CommandContext(string[] args, ICommand command)
       {
-            this.args = args;
+            if (args is null) { throw new NullReferenceException(nameof(args)); }
+            if (command is null) { throw new NullReferenceException(nameof(command)); }
+            this._args = args;
             this._command = command;
       }
-      
+
       public void Next()
       {
             _currentIndex++;
@@ -36,14 +37,14 @@ public class CommandContext
       /// <returns>The parameter argument as an object</returns>
       public object? GetParameter()
       {
-            
-            if(NextParameter >= _args.Length)
+
+            if (NextParameter >= _args.Length)
             {
                   return null;
             }
             return _args[NextParameter];
       }
-      public void SetOptions(List<CommandOption> options)
+      public void SetOptions(ICollection<CommandOption> options)
       {
             _options = options;
       }
